@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Registration Honeypot
  * Description: Add a honeypot input to the ClassicPress registration form to prevent spambots from creating accounts.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Simone Fioravanti
  * Author URI: https://software.gieffeedizioni.it
  * Plugin URI: https://software.gieffeedizioni.it
@@ -29,6 +29,9 @@ namespace CodePotent\RegistrationHoneypot;
 if (!defined('ABSPATH')) {
 	die();
 }
+
+// Include constants file.
+require_once(plugin_dir_path(__FILE__).'includes/constants.php');
 
 // Include update client.
 require_once(plugin_dir_path(__FILE__).'classes/UpdateClient.class.php');
@@ -65,11 +68,11 @@ function check_honeypot_input() {
 }
 
 // POST-ADOPTION: Remove these actions before pushing your next update.
-add_action('upgrader_process_complete', 'codepotent_enable_adoption_notice', 10, 2);
-add_action('admin_notices', 'codepotent_display_adoption_notice');
+add_action('upgrader_process_complete', __NAMESPACE__.'\enable_adoption_notice', 10, 2);
+add_action('admin_notices', __NAMESPACE__.'\display_adoption_notice');
 
 // POST-ADOPTION: Remove this function before pushing your next update.
-function codepotent_enable_adoption_notice($upgrader_object, $options) {
+function enable_adoption_notice($upgrader_object, $options) {
 	if ($options['action'] === 'update') {
 		if ($options['type'] === 'plugin') {
 			if (!empty($options['plugins'])) {
@@ -82,7 +85,7 @@ function codepotent_enable_adoption_notice($upgrader_object, $options) {
 }
 
 // POST-ADOPTION: Remove this function before pushing your next update.
-function codepotent_display_adoption_notice() {
+function display_adoption_notice() {
 	if (get_transient(PLUGIN_PREFIX.'_adoption_complete')) {
 		delete_transient(PLUGIN_PREFIX.'_adoption_complete');
 		echo '<div class="notice notice-success is-dismissible">';
