@@ -4,7 +4,9 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Registration Honeypot
  * Description: Add a honeypot input to the ClassicPress registration form to prevent spambots from creating accounts.
- * Version: 1.1.1
+ * Version: 1.1.2
+ * Requires CP: 1.0
+ * Requires PHP: 5.6
  * Author: Simone Fioravanti
  * Author URI: https://software.gieffeedizioni.it
  * Plugin URI: https://software.gieffeedizioni.it
